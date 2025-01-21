@@ -3,9 +3,10 @@ import Input from "./components/Input";
 import Text from "./components/Text";
 
 function App() {
-  const [text, setText] = useState(
-    "Understanding the difference between grid-template and grid-auto\nOct 09, 2018\nWith all the new properties related to CSS Grid Layout, one of the distinctions that always confused me was the difference between the grid-template-* and grid-auto-* properties. Specifically, the difference between grid-template-rows/columns and grid-auto-rows/columns. Although I knew they were to...Recreating the GitHub Contribution Graph with CSS Grid Layout"
-  );
+  const text =
+    "Understanding the difference between grid-template and grid-auto\nOct 09, 2018\nWith all the new properties related to CSS Grid Layout, one of the distinctions that always confused me was the difference between the grid-template-* and grid-auto-* properties. Specifically, the difference between grid-template-rows/columns and grid-auto-rows/columns. Although I knew they were to...Recreating the GitHub Contribution Graph with CSS Grid Layout";
+  const textList = text.split(/\s+/).filter(Boolean);
+  console.log(textList, "textLLLLLLLLL");
   const [wordCount, setWordCount] = useState(0);
   const [highlightWord, setHighlightWord] = useState("");
   console.log(highlightWord);
@@ -19,11 +20,7 @@ function App() {
       />
       <br />
       {`${wordCount} posts were found.`}
-      <Text
-        textValue={text}
-        highlightWord={highlightWord}
-        wordCount={wordCount}
-      />
+      <Text text={text} highlightWord={highlightWord} wordCount={wordCount} />
     </>
   );
 }

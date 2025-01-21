@@ -1,26 +1,37 @@
-import React from "react";
+import PropTypes from "prop-types";
 
-export default function Text({ textValue, highlightWord }) {
-  const getHighlightedText = (text, highlight) => {
-    if (!highlight.trim()) return text;
-
-    const regex = new RegExp(`(${highlight})`, "gi");
-    const parts = text.split(regex);
-
-    return parts.map((part, index) =>
-      regex.test(part) ? (
-        <span key={index} style={{ backgroundColor: "yellow" }}>
-          {part}
-        </span>
-      ) : (
-        part
-      )
-    );
-  };
-
+export default function Text({ text, highlightWord }) {
   return (
     <div>
-      <p>{getHighlightedText(textValue, highlightWord)}</p>
+      <p>{getHighlightedText(text, highlightWord)}</p>
     </div>
   );
 }
+
+Text.propTypes = {
+  text: PropTypes.string.isRequired,
+  highlightWord: PropTypes.string.isRequired,
+};
+
+const getHighlightedText = (text, highlightWord) => {
+  if (!highlightWord.trim()) return text;
+
+  const words = text.split(" ");
+
+  return words.map((word, index) => {
+    if (word.toLowerCase().startsWith(highlightWord.toLowerCase())) {
+      const highlightLength = highlightWord.length;
+
+      return (
+        <span key={index}>
+          <span style={{ backgroundColor: "yellow" }}>
+            {word.slice(0, highlightLength)}
+          </span>
+          {word.slice(highlightLength)}{" "}
+        </span>
+      );
+    }
+
+    return word + " ";
+  });
+};
